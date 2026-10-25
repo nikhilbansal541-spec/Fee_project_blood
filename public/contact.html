@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare - Contact Us</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06080c;
+            --card: #12161f;
+            --card-hover: #181d29;
+            --red: #e60000;
+            --muted: #8b95a5;
+            --border: #1e2533;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            background: var(--bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .navbar {
+            width: 100%;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(6, 8, 12, 0.85);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo i {
+            color: var(--red);
+        }
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--red);
+            color: #fff;
+        }
+        .wrap {
+            max-width: 1300px;
+            margin: auto;
+            padding: 0 24px;
+        }
+        .hero {
+            text-align: center;
+            padding: 3.5rem 0 2.5rem;
+        }
+        .tag {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+        .hero h1 span {
+            color: var(--red);
+        }
+        .hero p {
+            max-width: 600px;
+            margin: auto;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: clamp(0.95rem, 1.8vh, 1.05rem);
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.15fr;
+            gap: 1.8rem;
+            margin-bottom: 3rem;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            align-content: start;
+        }
+        .info-card, .form-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+        .info-card {
+            padding: 1.75rem 1.5rem;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(230, 0, 0, 0.65);
+            background: var(--card-hover);
+            box-shadow: 0 12px 25px rgba(230, 0, 0, 0.12);
+        }
+        .info-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(230, 0, 0, 0.12);
+            border: 1px solid rgba(230, 0, 0, 0.4);
+            color: var(--red);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+        .info-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            font-weight: 700;
+        }
+        .info-card p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .form-card {
+            padding: 2.25rem;
+        }
+        .form-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+            font-weight: 800;
+        }
+        .form-card > p {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.75rem;
+        }
+        .field {
+            margin-bottom: 1.2rem;
+        }
+        .field label {
+            display: block;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        .field input, .field textarea {
+            width: 100%;
+            padding: 0 1rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.25s ease;
+        }
+        .field input {
+            height: 46px;
+        }
+        .field textarea {
+            padding-top: 12px;
+            height: 110px;
+            resize: none;
+        }
+        .field input:focus, .field textarea:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 12px rgba(230, 0, 0, 0.25);
+        }
+        .send-btn {
+            width: 100%;
+            height: 48px;
+            background: var(--red);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .send-btn:hover {
+            background: #b30000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(230, 0, 0, 0.35);
+        }
+        #formMessage {
+            display: none;
+            margin-top: 1.1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        #formMessage.success {
+            display: block;
+            background: rgba(0, 230, 118, 0.12);
+            border: 1px solid rgba(0, 230, 118, 0.3);
+            color: #00e676;
+        }
+        .hours-strip {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+            padding: 1.75rem 2rem;
+            border: 1px solid rgba(230, 0, 0, 0.35);
+            border-radius: 16px;
+            background: linear-gradient(100deg, rgba(230, 0, 0, 0.18), #12161f 60%);
+            cursor: pointer;
+        }
+        .hours-strip h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.3rem;
+            font-weight: 800;
+        }
+        .hours-strip p {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        footer {
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .contact-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+        @media (max-width: 560px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-droplet"></i>
+            BloodCare
+        </a>
+        <nav class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="donor.html">Donors</a>
+            <a href="contact.html" class="active">Contact</a>
+        </nav>
+        <a href="home.html" style="color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 8px 16px; border: 1px solid var(--red); border-radius: 8px;">
+            Back to App
+        </a>
+    </header>
+
+    <div class="wrap">
+        <main>
+            <section class="hero">
+                <p class="tag">GET IN TOUCH</p>
+                <h1>Contact <span>Us.</span></h1>
+                <p>
+                    Have a question, need urgent blood assistance, or want to organize a donation drive?
+                    Our medical coordination team is on standby 24/7.
+                </p>
+            </section>
+
+            <section class="contact-grid">
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-phone"></i></div>
+                        <h3>Emergency Phone</h3>
+                        <p>+91 98765 43210</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <h3>Email Support</h3>
+                        <p>support@bloodcare.com</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-location-dot"></i></div>
+                        <h3>Central Hub</h3>
+                        <p>Sector 16, Chandigarh, India</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon"><i class="fa-solid fa-clock"></i></div>
+                        <h3>Support Hours</h3>
+                        <p>24/7 Dedicated Helpline</p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <h2>Send us a message</h2>
+                    <p>We usually respond within a few hours.</p>
+                    <form id="contactForm">
+                        <div class="field">
+                            <label for="cName">Your Name</label>
+                            <input type="text" id="cName" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="field">
+                            <label for="cEmail">Email Address</label>
+                            <input type="email" id="cEmail" placeholder="Enter your email" required>
+                        </div>
+                        <div class="field">
+                            <label for="cMessage">Message</label>
+                            <textarea id="cMessage" placeholder="Describe requirement, hospital location, or camp inquiries..." required></textarea>
+                        </div>
+                        <button type="submit" class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                    <div id="formMessage"></div>
+                </div>
+            </section>
+
+            <section class="hours-strip" onclick="window.location.href='tel:+919876543210'">
+                <div>
+                    <h3>Need blood urgently right now?</h3>
+                    <p>Skip the form — call our 24/7 emergency dispatch helpline (+91 98765 43210) for immediate hospital matching.</p>
+                </div>
+                <i class="fa-solid fa-truck-medical" style="font-size: 2rem; color: var(--red);"></i>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        © 2026 BloodCare. Built with JavaScript, HTML, and CSS.
+    </footer>
+
+    <script>
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('cName').value.trim();
+            const email = document.getElementById('cEmail').value.trim();
+            const message = document.getElementById('cMessage').value.trim();
+
+            if (!name || !email || !message) {
+                formMessage.className = 'error';
+                formMessage.innerText = 'Please fill in all fields.';
+                return;
+            }
+
+            const ticketId = 'TIC-' + Math.floor(1000 + Math.random() * 9000);
+            formMessage.className = 'success';
+            formMessage.innerText = 'Thanks ' + name + '! Support Ticket #' + ticketId + ' generated. Our coordinator will contact you shortly.';
+            contactForm.reset();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+:root {
+  --bg-main: #06080c;
+  --bg-card: #12161f;
+  --bg-card-hover: #181d29;
+  --primary-red: #e60000;
+  --text-light: #ffffff;
+  --text-muted: #8b95a5;
+  --border-color: #1e2533;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-light);
+  font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Card and Panel Styles without distracting effects */
+.glass-panel {
+  background: #12161f;
+  border: 1px solid #1e2533;
+}
+
+.glass-panel:hover {
+  background: #181d29;
+  border-color: #374151;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #090c12;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252e40;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e60000;
+}

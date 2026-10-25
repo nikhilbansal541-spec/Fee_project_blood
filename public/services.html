@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare - Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06080c;
+            --card: #12161f;
+            --card-hover: #181d29;
+            --red: #e60000;
+            --muted: #8b95a5;
+            --border: #1e2533;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            background: var(--bg);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .navbar {
+            width: 100%;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(6, 8, 12, 0.85);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo i {
+            color: var(--red);
+        }
+        .links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+        .links a:hover, .links a.active {
+            background: var(--red);
+            color: #fff;
+        }
+        .wrap {
+            max-width: 1300px;
+            margin: auto;
+            padding: 0 24px;
+        }
+        .hero {
+            padding: 3.5rem 0 2.5rem;
+            text-align: center;
+        }
+        .tag {
+            color: var(--red);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            margin-bottom: 0.8rem;
+        }
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+        .hero p {
+            max-width: 610px;
+            margin: auto;
+            color: var(--muted);
+            line-height: 1.65;
+            font-size: clamp(0.95rem, 1.8vh, 1.05rem);
+        }
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+        .service-card, .why-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            height: 100%;
+            cursor: pointer;
+        }
+        .service-card {
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .service-card:hover, .why-card:hover {
+            background: var(--card-hover);
+            border-color: rgba(230, 0, 0, 0.7);
+            box-shadow: 0 14px 30px rgba(230, 0, 0, 0.16);
+            transform: translateY(-5px);
+        }
+        .service-icon {
+            width: 52px;
+            height: 52px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 1.2rem;
+            border: 1px solid rgba(230, 0, 0, 0.34);
+            border-radius: 12px;
+            background: rgba(230, 0, 0, 0.12);
+            color: var(--red);
+            font-size: 1.4rem;
+        }
+        .service-card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 0.65rem;
+            font-weight: 800;
+        }
+        .service-card p, .why-card p {
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+        .why-bloodcare {
+            margin: 4rem 0;
+            padding: 3.5rem 1.5rem;
+            border: 1px solid var(--border);
+            background: rgba(18, 22, 31, 0.4);
+            border-radius: 16px;
+            text-align: center;
+        }
+        .why-bloodcare h2 {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+        .subtitle {
+            margin-bottom: 2.5rem;
+            color: var(--muted);
+        }
+        .why-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .why-card {
+            padding: 2rem 1.5rem;
+        }
+        .why-card i {
+            margin-bottom: 1rem;
+            color: var(--red);
+            font-size: 2rem;
+        }
+        .why-card h3 {
+            margin-bottom: 0.6rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+        .cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            margin: 3rem 0;
+            padding: 2.5rem;
+            border: 1px solid rgba(230, 0, 0, 0.35);
+            border-radius: 16px;
+            background: linear-gradient(100deg, rgba(230, 0, 0, 0.2), #12161f 58%);
+        }
+        .cta h2 {
+            margin-bottom: 0.5rem;
+            font-size: clamp(1.5rem, 3vw, 2.2rem);
+            font-weight: 800;
+        }
+        .cta p {
+            color: var(--muted);
+        }
+        .button {
+            display: inline-block;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 0.85rem 1.5rem;
+            background: var(--red);
+            color: #fff;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .button:hover {
+            background: #b30000;
+            box-shadow: 0 0 20px rgba(230, 0, 0, 0.5);
+        }
+        footer {
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+        @media (max-width: 900px) {
+            .services, .why-cards { grid-template-columns: repeat(2, 1fr); }
+            .links { display: none; }
+        }
+        @media (max-width: 600px) {
+            .services, .why-cards { grid-template-columns: 1fr; }
+            .cta { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-droplet"></i>
+            BloodCare
+        </a>
+        <div class="links">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="donor.html">Donors</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <a href="login.html" class="button" style="padding: 8px 18px; font-size: 0.85rem;">Login</a>
+    </header>
+
+    <div class="wrap">
+        <main>
+            <section class="hero">
+                <p class="tag">OUR SERVICES</p>
+                <h1>HOW WE CAN HELP.</h1>
+                <p>Whether you are ready to donate or searching for urgent medical support, BloodCare gives you a clear, instant place to begin.</p>
+            </section>
+
+            <section class="services">
+                <div class="service-card" onclick="openServiceRequestModal()">
+                    <div>
+                        <div class="service-icon"><i class="fa-solid fa-droplet"></i></div>
+                        <h2>Request Blood</h2>
+                        <p>Send an emergency request and notify verified donors and hospitals in your city without delay.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        Create Request &rarr;
+                    </span>
+                </div>
+
+                <div class="service-card" onclick="window.location.href='donor.html'">
+                    <div>
+                        <div class="service-icon"><i class="fa-solid fa-magnifying-glass"></i></div>
+                        <h2>Find Donors</h2>
+                        <p>Connect with compatible, active donors filtered by blood type, city, and donation readiness.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        Browse Donors &rarr;
+                    </span>
+                </div>
+
+                <div class="service-card" onclick="openTrackModal()">
+                    <div>
+                        <div class="service-icon"><i class="fa-solid fa-route"></i></div>
+                        <h2>Track Requests</h2>
+                        <p>Stay updated on the progress of your blood request in real-time from broadcast to hospital delivery.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        Open Tracker &rarr;
+                    </span>
+                </div>
+
+                <div class="service-card" onclick="openCampModal()">
+                    <div>
+                        <div class="service-icon"><i class="fa-solid fa-tent"></i></div>
+                        <h2>Donation Camps</h2>
+                        <p>Discover upcoming voluntary donation drives and receive free comprehensive health checkups.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        View Camps &rarr;
+                    </span>
+                </div>
+
+                <div class="service-card" onclick="openEmergencyModal()">
+                    <div>
+                        <div class="service-icon" style="background: rgba(230,0,0,0.25);"><i class="fa-solid fa-truck-medical"></i></div>
+                        <h2>Emergency Support</h2>
+                        <p>24/7 dedicated hospital hotline for acute trauma, emergency surgeries, and blood bank coordination.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        24/7 Hotline &rarr;
+                    </span>
+                </div>
+
+                <div class="service-card" onclick="window.location.href='signup.html'">
+                    <div>
+                        <div class="service-icon"><i class="fa-solid fa-user-plus"></i></div>
+                        <h2>Donor Registration</h2>
+                        <p>Join our certified network and be alerted whenever someone with your blood group needs urgent help.</p>
+                    </div>
+                    <span style="color: var(--red); font-size: 0.85rem; font-weight: 700; margin-top: 16px; display: inline-block;">
+                        Register Now &rarr;
+                    </span>
+                </div>
+            </section>
+
+            <section class="why-bloodcare">
+                <h2>Why Choose BloodCare?</h2>
+                <p class="subtitle">Making blood donation and blood requests simple for everyone.</p>
+                <div class="why-cards">
+                    <article class="why-card">
+                        <i class="fa-solid fa-bolt"></i>
+                        <h3>Quick &amp; Simple</h3>
+                        <p>Find donors and request blood through an easy-to-use digital platform.</p>
+                    </article>
+                    <article class="why-card">
+                        <i class="fa-solid fa-shield-heart"></i>
+                        <h3>Trusted Community</h3>
+                        <p>Direct verification of blood groups and voluntary donors prevents misinformation.</p>
+                    </article>
+                    <article class="why-card">
+                        <i class="fa-solid fa-heart-pulse"></i>
+                        <h3>Save Lives</h3>
+                        <p>Every single blood donation can give up to 3 patients another chance at life.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="cta">
+                <div>
+                    <p class="tag">READY TO HELP?</p>
+                    <h2>One donation can change everything.</h2>
+                    <p>Register today and be the reason someone gets another tomorrow.</p>
+                </div>
+                <a class="button" href="signup.html">Register as a Donor</a>
+            </section>
+        </main>
+    </div>
+
+    <!-- SERVICE MODAL -->
+    <div id="serviceModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:99999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:16px; max-width:480px; width:100%; padding:24px; color:#fff; box-shadow:0 10px 40px rgba(0,0,0,0.8);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <h3 id="srvModalTitle" style="margin:0; font-size:18px;">Emergency Service</h3>
+                <button onclick="document.getElementById('serviceModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <div id="srvModalBody"></div>
+        </div>
+    </div>
+
+    <footer>
+        © 2026 BloodCare. Built with JavaScript, HTML, and CSS.
+    </footer>
+
+    <script>
+        function openServiceRequestModal() {
+            document.getElementById("srvModalTitle").innerHTML = "<i class='fa-solid fa-droplet' style='color:#e60000;'></i> Request Emergency Blood";
+            document.getElementById("srvModalBody").innerHTML = `
+                <form onsubmit="event.preventDefault(); alert('Emergency Blood Request Broadcasted! Verified donors notified.'); document.getElementById('serviceModal').style.display='none';">
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Patient Name</label>
+                        <input type="text" required style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="Full name">
+                    </div>
+                    <div style="margin-bottom:12px;">
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Blood Group</label>
+                        <select style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;">
+                            <option>O+</option><option>O-</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option>
+                        </select>
+                    </div>
+                    <div style="margin-bottom:16px;">
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Hospital / City</label>
+                        <input type="text" required style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="e.g. Civil Hospital, Chandigarh">
+                    </div>
+                    <button type="submit" style="width:100%; padding:12px; background:#e60000; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:14px; cursor:pointer;">
+                        Broadcast Request Now
+                    </button>
+                </form>
+            `;
+            document.getElementById("serviceModal").style.display = "flex";
+        }
+
+        function openTrackModal() {
+            document.getElementById("srvModalTitle").innerHTML = "<i class='fa-solid fa-route' style='color:#e60000;'></i> Live Request Tracking";
+            document.getElementById("srvModalBody").innerHTML = `
+                <div style="font-size:13px; space-y:12px;">
+                    <div style="padding:12px; background:#080b11; border-radius:8px; border:1px solid #1e2533; margin-bottom:12px;">
+                        <strong style="color:#e60000;">Active ID: REQ-4091</strong>
+                        <p style="margin:4px 0; color:#ccc;">Patient: Kavita Devi (O+ Blood Group)</p>
+                        <span style="color:#10b981; font-weight:bold;">● 3 Donors En Route</span>
+                    </div>
+                    <div style="padding:10px; color:#8b95a5; font-size:12px;">
+                        ✓ Broadcast sent &rarr; ✓ Donors confirmed &rarr; ⏳ Awaiting hospital arrival
+                    </div>
+                </div>
+            `;
+            document.getElementById("serviceModal").style.display = "flex";
+        }
+
+        function openCampModal() {
+            document.getElementById("srvModalTitle").innerHTML = "<i class='fa-solid fa-tent' style='color:#e60000;'></i> Upcoming Blood Drives";
+            document.getElementById("srvModalBody").innerHTML = `
+                <div>
+                    <div style="background:#0b0e14; border:1px solid #1e2533; border-radius:8px; padding:12px; margin-bottom:10px;">
+                        <strong style="color:#ff4d4d;">City Red Cross Drive</strong> - Chandigarh
+                        <p style="margin:4px 0; color:#8b95a5; font-size:12px;">📅 Oct 25, 2026 | 9:00 AM - 4:00 PM</p>
+                        <span style="font-size:11px; color:#10b981;">36 Free Slots Available</span>
+                    </div>
+                    <button onclick="alert('Camp slot reserved! Digital pass code: CAMP-782910'); document.getElementById('serviceModal').style.display='none';" style="width:100%; padding:12px; background:#e60000; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:13px; cursor:pointer;">
+                        Reserve Free Slot
+                    </button>
+                </div>
+            `;
+            document.getElementById("serviceModal").style.display = "flex";
+        }
+
+        function openEmergencyModal() {
+            document.getElementById("srvModalTitle").innerHTML = "🚨 24/7 Emergency Support";
+            document.getElementById("srvModalBody").innerHTML = `
+                <div style="text-align:center; padding:10px 0;">
+                    <p style="color:#8b95a5; font-size:13px; margin-bottom:16px;">Emergency trauma, acute bleeding, or critical surgery assistance:</p>
+                    <a href="tel:+919876543210" style="display:inline-block; padding:14px 28px; background:#e60000; color:#fff; border-radius:10px; font-size:18px; font-weight:bold; text-decoration:none; margin-bottom:16px; box-shadow:0 0 20px rgba(230,0,0,0.6);">
+                        📞 +91 98765 43210
+                    </a>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; font-size:12px; margin-top:10px;">
+                        <div style="background:#0b0e14; padding:8px; border-radius:6px; border:1px solid #1e2533;">Ambulance: <strong>108</strong></div>
+                        <div style="background:#0b0e14; padding:8px; border-radius:6px; border:1px solid #1e2533;">Blood Info: <strong>104</strong></div>
+                    </div>
+                </div>
+            `;
+            document.getElementById("serviceModal").style.display = "flex";
+        }
+    </script>
+</body>
+</html>

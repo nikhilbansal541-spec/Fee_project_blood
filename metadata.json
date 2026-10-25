@@ -1,0 +1,6 @@
+{
+  "name": "BloodCare - Emergency Blood Donation Platform",
+  "description": "Connecting blood donors, hospitals, and patients in real-time with instant donor search, emergency blood requests, live tracking, and interactive donation camps built in JavaScript, HTML, and CSS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare - Donors Directory</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #06080c;
+            --bg-card: #12161f;
+            --bg-card-hover: #181d29;
+            --primary-red: #e60000;
+            --text-light: #ffffff;
+            --text-muted: #8b95a5;
+            --border-color: #1e2533;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        body {
+            background: var(--bg-main);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        .navbar {
+            width: 100%;
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(6, 8, 12, 0.85);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo i {
+            color: var(--primary-red);
+        }
+        .nav-links {
+            display: flex;
+            gap: 10px;
+        }
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.25s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary-red);
+            color: #fff;
+        }
+        .heading {
+            text-align: center;
+            padding: 3rem 1rem 1.5rem;
+        }
+        .small-title {
+            color: var(--primary-red);
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 0.8rem;
+        }
+        .heading h1 {
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 900;
+            margin-bottom: 0.8rem;
+            line-height: 1.1;
+        }
+        .heading h1 span {
+            color: var(--primary-red);
+        }
+        .heading p:last-child {
+            color: var(--text-muted);
+            font-size: clamp(0.9rem, 1.8vh, 1.1rem);
+        }
+        .search-section {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0.5rem auto 2.5rem;
+            padding: 1.25rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+        .search-section input {
+            flex: 2;
+            min-width: 240px;
+            height: 48px;
+            padding: 0 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .search-section input:focus, .search-section select:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(230, 0, 0, 0.25);
+        }
+        .search-section select {
+            flex: 1;
+            min-width: 180px;
+            height: 48px;
+            padding: 0 1rem;
+            background: var(--bg-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            outline: none;
+            cursor: pointer;
+        }
+        .search-btn {
+            height: 48px;
+            padding: 0 2rem;
+            background: var(--primary-red);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-btn:hover {
+            background: #b30000;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(230, 0, 0, 0.35);
+        }
+        .donor-container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .donor-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem 1.5rem 1.5rem;
+            text-align: center;
+            transition: all 0.35s ease;
+        }
+        .donor-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--primary-red);
+            background: var(--bg-card-hover);
+            box-shadow: 0 12px 30px rgba(230, 0, 0, 0.15);
+        }
+        .blood-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(230, 0, 0, 0.15);
+            border-radius: 50%;
+            font-size: 1.8rem;
+        }
+        .donor-card h2 {
+            font-size: 1.35rem;
+            margin-bottom: 0.8rem;
+        }
+        .blood-group {
+            display: inline-block;
+            min-width: 65px;
+            padding: 6px 16px;
+            background: var(--primary-red);
+            border-radius: 20px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+        .donor-info {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin: 0.5rem 0;
+        }
+        .available {
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+        .available span {
+            color: #00e676;
+            margin-right: 5px;
+        }
+        .contact-btn {
+            width: 100%;
+            height: 44px;
+            margin-top: 1.25rem;
+            background: transparent;
+            border: 1px solid var(--primary-red);
+            color: var(--primary-red);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .contact-btn:hover {
+            background: var(--primary-red);
+            color: var(--text-light);
+            box-shadow: 0 6px 16px rgba(230, 0, 0, 0.3);
+        }
+        #noResults {
+            display: none;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin: 3rem auto;
+        }
+        @media (max-width: 768px) {
+            .search-section {
+                flex-direction: column;
+            }
+            .search-section input, .search-section select, .search-btn {
+                width: 100%;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-droplet"></i>
+            BloodCare
+        </a>
+        <nav class="nav-links">
+            <a href="home.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="services.html">Services</a>
+            <a href="donor.html" class="active">Donors</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <button class="search-btn" style="height: 40px; padding: 0 16px; font-size: 0.85rem;" onclick="openRegisterModal()">
+            + Register
+        </button>
+    </header>
+
+    <section class="heading">
+        <p class="small-title">BLOODCARE COMMUNITY</p>
+        <h1>OUR <span>DONORS.</span></h1>
+        <p>Meet the verified volunteers helping save lives every day.</p>
+    </section>
+
+    <section class="search-section">
+        <input type="text" id="searchInput" placeholder="Search donor by name or city...">
+        <select id="bloodFilter">
+            <option value="all">All Blood Groups</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+        </select>
+        <button class="search-btn" onclick="searchDonors()">Search</button>
+        <button class="search-btn" style="background: #181d29; border: 1px solid #1e2533;" onclick="openRegisterModal()">
+            + Join as Donor
+        </button>
+    </section>
+
+    <section class="donor-container" id="donorContainer">
+        <div class="donor-card" data-name="Rahul Sharma" data-blood="O+" data-city="Chandigarh">
+            <div class="blood-icon">🩸</div>
+            <h2>Rahul Sharma</h2>
+            <div class="blood-group">O+</div>
+            <p class="donor-info">📍 Chandigarh</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Rahul Sharma', 'O+', 'Chandigarh')">Contact Donor</button>
+        </div>
+        <div class="donor-card" data-name="Priya Singh" data-blood="A+" data-city="Patiala">
+            <div class="blood-icon">🩸</div>
+            <h2>Priya Singh</h2>
+            <div class="blood-group">A+</div>
+            <p class="donor-info">📍 Patiala</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Priya Singh', 'A+', 'Patiala')">Contact Donor</button>
+        </div>
+        <div class="donor-card" data-name="Aman Verma" data-blood="B+" data-city="Mohali">
+            <div class="blood-icon">🩸</div>
+            <h2>Aman Verma</h2>
+            <div class="blood-group">B+</div>
+            <p class="donor-info">📍 Mohali</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Aman Verma', 'B+', 'Mohali')">Contact Donor</button>
+        </div>
+        <div class="donor-card" data-name="Simran Kaur" data-blood="AB+" data-city="Rajpura">
+            <div class="blood-icon">🩸</div>
+            <h2>Simran Kaur</h2>
+            <div class="blood-group">AB+</div>
+            <p class="donor-info">📍 Rajpura</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Simran Kaur', 'AB+', 'Rajpura')">Contact Donor</button>
+        </div>
+        <div class="donor-card" data-name="Arjun Mehta" data-blood="O-" data-city="Chandigarh">
+            <div class="blood-icon">🩸</div>
+            <h2>Arjun Mehta</h2>
+            <div class="blood-group">O-</div>
+            <p class="donor-info">📍 Chandigarh</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Arjun Mehta', 'O-', 'Chandigarh')">Contact Donor</button>
+        </div>
+        <div class="donor-card" data-name="Neha Gupta" data-blood="B-" data-city="Ludhiana">
+            <div class="blood-icon">🩸</div>
+            <h2>Neha Gupta</h2>
+            <div class="blood-group">B-</div>
+            <p class="donor-info">📍 Ludhiana</p>
+            <p class="donor-info available"><span>●</span> Available for donation</p>
+            <button class="contact-btn" onclick="contactDonor('Neha Gupta', 'B-', 'Ludhiana')">Contact Donor</button>
+        </div>
+    </section>
+
+    <p id="noResults">No donors match your search query.</p>
+
+    <!-- CONTACT MODAL -->
+    <div id="contactModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:16px; max-width:440px; width:100%; padding:24px; color:#fff; box-shadow:0 10px 40px rgba(0,0,0,0.8);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="font-size:24px;">🩸</span>
+                    <div>
+                        <h3 id="modalDonorName" style="font-size:18px; margin:0;"></h3>
+                        <span id="modalDonorBlood" style="color:#ff4d4d; font-weight:bold; font-size:12px;"></span>
+                    </div>
+                </div>
+                <button onclick="document.getElementById('contactModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <p style="font-size:13px; color:#8b95a5; margin-bottom:16px;">Verified Community Donor ready to assist in medical emergency.</p>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:16px;">
+                <a href="tel:+919876543210" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; background:#181d29; border:1px solid #1e2533; border-radius:8px; color:#fff; text-decoration:none; font-size:13px; font-weight:bold;">
+                    <i class="fa-solid fa-phone"></i> Call Now
+                </a>
+                <a id="modalWaBtn" href="#" target="_blank" style="display:flex; align-items:center; justify-content:center; gap:8px; padding:12px; background:#181d29; border:1px solid #1e2533; border-radius:8px; color:#25D366; text-decoration:none; font-size:13px; font-weight:bold;">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+            <button onclick="sendAlertToDonor()" id="modalAlertBtn" style="width:100%; padding:12px; background:#e60000; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:13px; cursor:pointer;">
+                <i class="fa-solid fa-bell"></i> Dispatch Emergency Alert Ping
+            </button>
+        </div>
+    </div>
+
+    <!-- REGISTER MODAL -->
+    <div id="registerModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:16px; max-width:440px; width:100%; padding:24px; color:#fff; box-shadow:0 10px 40px rgba(0,0,0,0.8);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <h3 style="font-size:18px; margin:0;">Register as Blood Donor</h3>
+                <button onclick="document.getElementById('registerModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <form onsubmit="handleDonorSubmit(event)">
+                <div style="margin-bottom:12px;">
+                    <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Full Name</label>
+                    <input type="text" id="regName" required style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="e.g. Jaswinder Singh">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <div>
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Blood Group</label>
+                        <select id="regBlood" style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;">
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="O+">O+</option><option value="O-">O-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">City</label>
+                        <input type="text" id="regCity" required style="width:100%; height:40px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="e.g. Chandigarh">
+                    </div>
+                </div>
+                <button type="submit" style="width:100%; padding:12px; background:#e60000; color:#fff; border:none; border-radius:8px; font-weight:bold; font-size:13px; cursor:pointer; margin-top:8px;">
+                    Save & Join Network
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function searchDonors() {
+            const searchValue = document.getElementById("searchInput").value.toLowerCase().trim();
+            const bloodValue = document.getElementById("bloodFilter").value;
+            const cards = document.querySelectorAll(".donor-card");
+            let found = false;
+
+            cards.forEach(function(card) {
+                const donorName = card.getAttribute("data-name").toLowerCase();
+                const donorCity = (card.getAttribute("data-city") || "").toLowerCase();
+                const donorBlood = card.getAttribute("data-blood");
+
+                const textMatch = donorName.includes(searchValue) || donorCity.includes(searchValue);
+                const bloodMatch = bloodValue === "all" || donorBlood === bloodValue;
+
+                if (textMatch && bloodMatch) {
+                    card.style.display = "block";
+                    found = true;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            document.getElementById("noResults").style.display = found ? "none" : "block";
+        }
+
+        let currentDonorName = "";
+        function contactDonor(name, blood, city) {
+            currentDonorName = name;
+            document.getElementById('modalDonorName').innerText = name;
+            document.getElementById('modalDonorBlood').innerText = "Blood Group: " + blood + " • " + city;
+            document.getElementById('modalWaBtn').href = "https://wa.me/919876543210?text=" + encodeURIComponent("Hello " + name + ", I found your profile on BloodCare. We need urgent blood assistance.");
+            document.getElementById('contactModal').style.display = 'flex';
+        }
+
+        function sendAlertToDonor() {
+            const btn = document.getElementById('modalAlertBtn');
+            btn.innerHTML = "<i class='fa-solid fa-check'></i> Alert Ping Sent to " + currentDonorName;
+            btn.style.background = "#10b981";
+            setTimeout(() => {
+                btn.innerHTML = "<i class='fa-solid fa-bell'></i> Dispatch Emergency Alert Ping";
+                btn.style.background = "#e60000";
+                document.getElementById('contactModal').style.display = 'none';
+            }, 1800);
+        }
+
+        function openRegisterModal() {
+            document.getElementById('registerModal').style.display = 'flex';
+        }
+
+        function handleDonorSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const blood = document.getElementById('regBlood').value;
+            const city = document.getElementById('regCity').value.trim();
+
+            const card = document.createElement('div');
+            card.className = 'donor-card';
+            card.setAttribute('data-name', name);
+            card.setAttribute('data-blood', blood);
+            card.setAttribute('data-city', city);
+            card.innerHTML = `
+                <div class="blood-icon">🩸</div>
+                <h2>${name}</h2>
+                <div class="blood-group">${blood}</div>
+                <p class="donor-info">📍 ${city}</p>
+                <p class="donor-info available"><span>●</span> Available for donation</p>
+                <button class="contact-btn" onclick="contactDonor('${name}', '${blood}', '${city}')">Contact Donor</button>
+            `;
+            document.getElementById('donorContainer').prepend(card);
+            document.getElementById('registerModal').style.display = 'none';
+            alert("Congratulations " + name + "! You are registered in the BloodCare donor community.");
+        }
+
+        document.getElementById("searchInput").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") searchDonors();
+        });
+        document.getElementById("bloodFilter").addEventListener("change", searchDonors);
+    </script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #06080c;
+            --card: #12161f;
+            --card-hover: #181d29;
+            --red: #e60000;
+            --muted: #8b95a5;
+            --border: #1e2533;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Arial, sans-serif;
+        }
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: var(--bg);
+            color: #fff;
+            position: relative;
+        }
+        body::before {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: rgba(230, 0, 0, 0.12);
+            filter: blur(100px);
+            top: 10%;
+            left: 10%;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .navbar {
+            height: 76px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            background: rgba(6, 8, 12, 0.95);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.35rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo i {
+            color: var(--red);
+            font-size: 1.45rem;
+            filter: drop-shadow(0 0 8px var(--red));
+        }
+        .back-btn {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 18px;
+            border: 1px solid var(--red);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover {
+            background: var(--red);
+            box-shadow: 0 0 16px rgba(230, 0, 0, 0.4);
+        }
+        .login-wrapper {
+            min-height: calc(100vh - 76px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem 1.25rem;
+            position: relative;
+            z-index: 2;
+        }
+        .login-card {
+            width: 440px;
+            max-width: 100%;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 2.5rem 2.25rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease;
+        }
+        .login-card:hover {
+            border-color: rgba(230, 0, 0, 0.4);
+        }
+        .login-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(230, 0, 0, 0.15);
+            color: var(--red);
+            font-size: 1.8rem;
+        }
+        .login-card h1 {
+            text-align: center;
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.4rem;
+        }
+        .login-card h1 span {
+            color: var(--red);
+        }
+        .subtitle {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 1.8rem;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #d1d5db;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .input-box {
+            position: relative;
+        }
+        .input-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+        .input-box input {
+            width: 100%;
+            height: 46px;
+            padding: 0 42px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+        .input-box input:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 10px rgba(230, 0, 0, 0.25);
+        }
+        .toggle-password {
+            left: auto !important;
+            right: 14px;
+            cursor: pointer;
+        }
+        .login-btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            background: var(--red);
+            color: #fff;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        .login-btn:hover {
+            background: #b30000;
+            box-shadow: 0 8px 25px rgba(230, 0, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        #message {
+            display: none;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 7px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+        #message.success {
+            display: block;
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid #10b981;
+            color: #10b981;
+        }
+        #message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid #ef4444;
+            color: #ef4444;
+        }
+        .register-text {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .register-text a {
+            color: var(--red);
+            text-decoration: none;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="home.html" class="logo">
+            <i class="fa-solid fa-droplet"></i>
+            BloodCare
+        </a>
+        <a href="home.html" class="back-btn">
+            <i class="fa-solid fa-arrow-left"></i> Back to Home
+        </a>
+    </header>
+
+    <main class="login-wrapper">
+        <div class="login-card">
+            <div class="login-icon">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            <h1>Welcome <span>Back.</span></h1>
+            <p class="subtitle">Login to your BloodCare volunteer account</p>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Enter your email" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-box">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" id="password" placeholder="Enter your password" required>
+                        <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+                    </div>
+                </div>
+                <button type="submit" class="login-btn">
+                    <i class="fa-solid fa-right-to-bracket"></i> Login
+                </button>
+            </form>
+            <div id="message"></div>
+            <p class="register-text">
+                Don't have an account?
+                <a href="signup.html">Create Account</a>
+            </p>
+        </div>
+    </main>
+
+    <script>
+        const password = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+        togglePassword.addEventListener("click", function () {
+            if (password.type === "password") {
+                password.type = "text";
+                togglePassword.classList.replace("fa-eye", "fa-eye-slash");
+            } else {
+                password.type = "password";
+                togglePassword.classList.replace("fa-eye-slash", "fa-eye");
+            }
+        });
+
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value.trim();
+            const pass = document.getElementById("password").value;
+            const message = document.getElementById("message");
+
+            if (!email || !pass) {
+                message.className = "error";
+                message.innerText = "Please fill in all fields.";
+                return;
+            }
+
+            const user = {
+                id: 'USR-' + Math.floor(1000 + Math.random() * 9000),
+                name: email.split('@')[0],
+                email: email,
+                role: 'donor'
+            };
+            localStorage.setItem('bloodcare_user', JSON.stringify(user));
+
+            message.className = "success";
+            message.innerText = "Login successful! Welcome back, " + user.name + ".";
+            setTimeout(function () {
+                window.location.href = "home.html";
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

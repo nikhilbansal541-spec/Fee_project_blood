@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BloodCare - Emergency Blood Donation Platform</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-main: #06080c;
+            --bg-card: #12161f;
+            --bg-card-hover: #181d29;
+            --primary-red: #e60000;
+            --text-light: #ffffff;
+            --text-muted: #8b95a5;
+            --border-color: #1e2533;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background: var(--bg-main);
+            color: var(--text-light);
+            overflow-x: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 0 24px;
+            position: relative;
+        }
+        .navbar {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(6, 8, 12, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+        .logo i {
+            color: var(--primary-red);
+        }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 6px;
+            transition: background 0.2s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background: var(--primary-red);
+            color: #ffffff;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-sos {
+            padding: 7px 14px;
+            background: rgba(230, 0, 0, 0.15);
+            border: 1px solid var(--primary-red);
+            color: #ff5252;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-sos:hover {
+            background: var(--primary-red);
+            color: #fff;
+        }
+        .btn-login {
+            padding: 7px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1px solid #374151;
+            color: #fff;
+            background: transparent;
+        }
+        .btn-login:hover {
+            background: var(--primary-red);
+            border-color: var(--primary-red);
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 480px;
+            gap: 30px;
+            padding: 30px 0;
+        }
+        .hero-text {
+            flex: 1.1;
+        }
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 5px 12px;
+            background: rgba(230, 0, 0, 0.15);
+            border: 1px solid rgba(230, 0, 0, 0.35);
+            color: #ff6b6b;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+        .hero-text h1 {
+            font-size: clamp(2.4rem, 5vw, 4rem);
+            line-height: 1.05;
+            margin-bottom: 14px;
+            font-weight: 900;
+        }
+        .hero-text h1 span {
+            color: var(--primary-red);
+        }
+        .hero-text p {
+            color: #9ca3af;
+            font-size: 1rem;
+            margin-bottom: 24px;
+            max-width: 520px;
+            line-height: 1.6;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            background: var(--primary-red);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary:hover {
+            background: #b30000;
+        }
+        .btn-outline {
+            background: #12161f;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline:hover {
+            border-color: #4b5563;
+        }
+        .story-card {
+            flex: 1;
+            background: #12161f;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            overflow: hidden;
+            min-height: 270px;
+        }
+        .story-timeline {
+            width: 48%;
+            padding: 20px 16px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid var(--border-color);
+            gap: 10px;
+            background: #090c12;
+        }
+        .tl-item {
+            position: relative;
+            padding-left: 12px;
+            border-left: 2px solid var(--primary-red);
+        }
+        .tl-item .num {
+            color: var(--primary-red);
+            font-weight: 800;
+            font-size: 0.9rem;
+            margin-right: 4px;
+        }
+        .tl-item h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            display: inline;
+        }
+        .tl-item p {
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            margin-top: 2px;
+        }
+        .story-image-section {
+            width: 52%;
+            position: relative;
+        }
+        .story-image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .story-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 16px 12px;
+            text-align: center;
+        }
+        .story-overlay h2 {
+            font-size: 1.15rem;
+            margin-bottom: 6px;
+        }
+        .dashboard-grids {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 40px;
+        }
+        .grid-row-1 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+        }
+        .grid-row-2 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr) 2fr;
+            gap: 14px;
+        }
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px 14px;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+        }
+        .card:hover {
+            border-color: #4b5563;
+            background-color: var(--bg-card-hover);
+        }
+        .feature-card i {
+            font-size: 1.8rem;
+            color: #ff5252;
+            margin-bottom: 10px;
+        }
+        .feature-card h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .feature-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .stat-card {
+            padding: 18px 10px;
+        }
+        .stat-title {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #ffffff;
+        }
+        .map-card {
+            background: #12161f;
+            border: 1px solid var(--border-color);
+            position: relative;
+            align-items: flex-start;
+            padding: 14px;
+        }
+        .map-card h4 {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .map-pin {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #ff4747;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .map-label {
+            position: absolute;
+            font-size: 0.7rem;
+            background: #000;
+            border: 1px solid #333;
+            padding: 2px 6px;
+            border-radius: 4px;
+            white-space: nowrap;
+            color: #eee;
+            transform: translateX(-50%);
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .pin-1 { top: 40%; left: 22%; }
+        .lbl-1 { top: 40%; left: 40%; }
+        .pin-2 { top: 68%; left: 52%; }
+        .lbl-2 { top: 68%; left: 70%; }
+        .pin-3 { top: 35%; left: 78%; }
+        .lbl-3 { top: 35%; left: 62%; }
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 20px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-text p {
+                margin: 0 auto 24px;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .story-card {
+                width: 100%;
+                flex-direction: column;
+            }
+            .story-timeline, .story-image-section {
+                width: 100%;
+            }
+            .grid-row-1, .grid-row-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .map-card {
+                grid-column: span 2;
+                min-height: 130px;
+            }
+        }
+        @media (max-width: 640px) {
+            .grid-row-1, .grid-row-2 {
+                grid-template-columns: 1fr;
+            }
+            .map-card {
+                grid-column: span 1;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- NAVBAR -->
+        <header class="navbar">
+            <a href="home.html" class="logo">
+                <i class="fa-solid fa-droplet"></i>
+                BloodCare
+            </a>
+            <nav class="nav-links">
+                <a href="home.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="services.html">Services</a>
+                <a href="donor.html">Donors</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="tel:+919876543210" class="btn-sos">
+                    <i class="fa-solid fa-phone"></i> 24/7 SOS
+                </a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+        </header>
+
+        <!-- HERO -->
+        <section class="hero">
+            <div class="hero-text">
+                <div class="hero-tag">
+                    24/7 EMERGENCY BLOOD NETWORK
+                </div>
+                <h1>
+                    SAVE BLOOD.<br>
+                    <span>SAVE LIVES.</span>
+                </h1>
+                <p>
+                    Connecting voluntary blood donors, patients, and healthcare centers across your city. Broadcast an emergency request or search verified donors directly.
+                </p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="openHomeRequestModal()">
+                        <i class="fa-solid fa-hand-holding-droplet"></i> Request Blood
+                    </button>
+                    <a href="donor.html" class="btn-outline">
+                        <i class="fa-solid fa-magnifying-glass"></i> Find Donors
+                    </a>
+                </div>
+            </div>
+
+            <!-- STORY CARD -->
+            <div class="story-card">
+                <div class="story-timeline">
+                    <div class="tl-item">
+                        <span class="num">01</span>
+                        <h4>One Donor</h4>
+                        <p>A decision to help.</p>
+                    </div>
+                    <div class="tl-item">
+                        <span class="num">02</span>
+                        <h4>One Donation</h4>
+                        <p>A drop of hope.</p>
+                    </div>
+                    <div class="tl-item">
+                        <span class="num">03</span>
+                        <h4>One Life</h4>
+                        <p>A new chance to live.</p>
+                    </div>
+                    <div class="tl-item">
+                        <span class="num">04</span>
+                        <h4>Be The Reason</h4>
+                        <p>Someone is waiting for you.</p>
+                    </div>
+                </div>
+                <div class="story-image-section">
+                    <img src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?q=80&w=600&auto=format&fit=crop" alt="Blood Donation">
+                    <div class="story-overlay">
+                        <h2>Small Act.<br>Big Impact.</h2>
+                        <a href="signup.html" class="btn-primary" style="padding: 6px 14px; font-size: 0.8rem;">
+                            Join as Donor
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DASHBOARD CARDS -->
+        <section class="dashboard-grids">
+            <!-- ROW 1 -->
+            <div class="grid-row-1">
+                <div class="card feature-card" onclick="openHomeRequestModal()">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <h3>Request Blood</h3>
+                    <p>Get help in medical emergency</p>
+                </div>
+                <a href="donor.html" class="card feature-card">
+                    <i class="fa-regular fa-user"></i>
+                    <h3>Find Donors</h3>
+                    <p>Connect with local verified donors</p>
+                </a>
+                <div class="card feature-card" onclick="openHomeTrackModal()">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                    <h3>Track Request</h3>
+                    <p>Live status & donor response</p>
+                </div>
+                <div class="card feature-card" onclick="showCampDetails('City Red Cross Blood Drive', 'Sector 16 Community Center, Chandigarh', 'Oct 25, 2026')">
+                    <i class="fa-solid fa-tent"></i>
+                    <h3>Donation Camps</h3>
+                    <p>Join scheduled voluntary drives</p>
+                </div>
+            </div>
+
+            <!-- ROW 2 -->
+            <div class="grid-row-2">
+                <div class="card stat-card" onclick="window.location.href='donor.html'">
+                    <p class="stat-title">Donors</p>
+                    <div class="stat-number">8,920+</div>
+                </div>
+                <div class="card stat-card" onclick="window.location.href='services.html'">
+                    <p class="stat-title">Donations</p>
+                    <div class="stat-number">12,450+</div>
+                </div>
+                <div class="card stat-card" onclick="window.location.href='about.html'">
+                    <p class="stat-title">Lives Saved</p>
+                    <div class="stat-number">300+</div>
+                </div>
+                <div class="card stat-card" onclick="showCampDetails('City Red Cross Camp', 'Sector 16, Chandigarh', 'Oct 25, 2026')">
+                    <p class="stat-title">Camps</p>
+                    <div class="stat-number">320+</div>
+                </div>
+
+                <!-- MAP -->
+                <div class="card map-card">
+                    <h4>CAMP LOCATIONS</h4>
+                    <div class="map-pin pin-1" onclick="showCampDetails('City Red Cross Camp', 'Sector 16 Community Center, Chandigarh', 'Oct 25, 2026')"></div>
+                    <div class="map-label lbl-1" onclick="showCampDetails('City Red Cross Camp', 'Sector 16 Community Center, Chandigarh', 'Oct 25, 2026')">
+                        City Camp: 2 Days Left
+                    </div>
+                    <div class="map-pin pin-2" onclick="showCampDetails('Mohali Health Drive', 'Phase 7 Rotary Bhavan, Mohali', 'Oct 26, 2026')"></div>
+                    <div class="map-label lbl-2" onclick="showCampDetails('Mohali Health Drive', 'Phase 7 Rotary Bhavan, Mohali', 'Oct 26, 2026')">
+                        Mohali Camp: Active
+                    </div>
+                    <div class="map-pin pin-3" onclick="showCampDetails('Panjab University Youth Drive', 'Sector 14 Student Centre', 'Oct 27, 2026')"></div>
+                    <div class="map-label lbl-3" onclick="showCampDetails('Panjab University Youth Drive', 'Sector 14 Student Centre', 'Oct 27, 2026')">
+                        Campus Drive: 4 Days Left
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            © 2026 BloodCare. Built with JavaScript, HTML, and CSS.
+        </footer>
+    </div>
+
+    <!-- MODALS -->
+    <div id="homeRequestModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:99999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:12px; max-width:500px; width:100%; padding:24px; color:#fff; max-height:90vh; overflow-y:auto;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <span style="color:#e60000; font-size:20px;"><i class="fa-solid fa-droplet"></i></span>
+                    <h3 style="margin:0; font-size:18px;">Request Blood Urgently</h3>
+                </div>
+                <button onclick="document.getElementById('homeRequestModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <form onsubmit="handleHomeRequestSubmit(event)">
+                <div style="margin-bottom:12px;">
+                    <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Patient Full Name</label>
+                    <input type="text" id="hrPatient" required style="width:100%; height:38px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="e.g. Ramesh Kumar">
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+                    <div>
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Blood Group</label>
+                        <select id="hrBlood" style="width:100%; height:38px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;">
+                            <option value="A+">A+</option><option value="A-">A-</option>
+                            <option value="B+">B+</option><option value="B-">B-</option>
+                            <option value="O+" selected>O+</option><option value="O-">O-</option>
+                            <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Units Needed</label>
+                        <input type="number" id="hrUnits" value="2" min="1" max="10" style="width:100%; height:38px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;">
+                    </div>
+                </div>
+                <div style="margin-bottom:12px;">
+                    <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Hospital Name & City</label>
+                    <input type="text" id="hrHospital" required style="width:100%; height:38px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="e.g. Civil Hospital, Chandigarh">
+                </div>
+                <div style="margin-bottom:16px;">
+                    <label style="display:block; font-size:12px; color:#8b95a5; margin-bottom:4px;">Contact Phone</label>
+                    <input type="tel" id="hrPhone" required style="width:100%; height:38px; background:#06080c; border:1px solid #1e2533; border-radius:6px; color:#fff; padding:0 10px; font-size:13px;" placeholder="+91 98765 43210">
+                </div>
+                <button type="submit" style="width:100%; padding:10px; background:#e60000; color:#fff; border:none; border-radius:6px; font-weight:bold; font-size:13px; cursor:pointer;">
+                    Broadcast Blood Request
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="homeTrackModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:99999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:12px; max-width:500px; width:100%; padding:24px; color:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <h3 style="margin:0; font-size:18px;">Live Blood Request Tracker</h3>
+                <button onclick="document.getElementById('homeTrackModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <div style="background:#0b0e14; border:1px solid #1e2533; border-radius:8px; padding:14px; font-size:13px;">
+                <strong style="color:#e60000;">ID: REQ-4091</strong>
+                <p style="margin:4px 0; color:#ccc;">Patient: Kavita Devi (O+ Blood Group)</p>
+                <p style="margin:4px 0; color:#8b95a5;">Hospital: Civil Hospital, Sector 16 Chandigarh</p>
+                <div style="margin-top:10px; padding-top:8px; border-top:1px solid #1e2533; color:#10b981; font-size:12px;">
+                    ✓ Broadcasted &rarr; ✓ Donors Alerted &rarr; In Progress
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="homeCampModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:99999; justify-content:center; align-items:center; padding:20px;">
+        <div style="background:#12161f; border:1px solid #1e2533; border-radius:12px; max-width:440px; width:100%; padding:24px; color:#fff;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #1e2533; padding-bottom:12px;">
+                <h3 id="campModalTitle" style="margin:0; font-size:18px;">Donation Camp</h3>
+                <button onclick="document.getElementById('homeCampModal').style.display='none'" style="background:none; border:none; color:#888; font-size:20px; cursor:pointer;">&times;</button>
+            </div>
+            <div style="background:#0b0e14; border:1px solid #1e2533; border-radius:8px; padding:14px; font-size:13px; margin-bottom:16px;">
+                <p id="campModalDesc" style="margin:4px 0; color:#ddd; font-weight:bold;"></p>
+                <p id="campModalAddr" style="margin:4px 0; color:#8b95a5;"></p>
+                <p id="campModalTime" style="margin:4px 0; color:#10b981;"></p>
+            </div>
+            <button onclick="bookCampSlot()" id="campBookBtn" style="width:100%; padding:10px; background:#e60000; color:#fff; border:none; border-radius:6px; font-weight:bold; font-size:13px; cursor:pointer;">
+                Reserve Free Donor Slot
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function openHomeRequestModal() {
+            document.getElementById("homeRequestModal").style.display = "flex";
+        }
+        function openHomeTrackModal() {
+            document.getElementById("homeTrackModal").style.display = "flex";
+        }
+        function showCampDetails(title, addr, time) {
+            document.getElementById("campModalTitle").innerText = title;
+            document.getElementById("campModalDesc").innerText = title;
+            document.getElementById("campModalAddr").innerText = "📍 " + addr;
+            document.getElementById("campModalTime").innerText = "📅 " + time;
+            const btn = document.getElementById("campBookBtn");
+            btn.innerText = "Reserve Free Donor Slot";
+            btn.style.background = "#e60000";
+            document.getElementById("homeCampModal").style.display = "flex";
+        }
+        function bookCampSlot() {
+            const btn = document.getElementById("campBookBtn");
+            btn.innerText = "✓ Slot Reserved";
+            btn.style.background = "#10b981";
+            setTimeout(() => {
+                document.getElementById("homeCampModal").style.display = "none";
+            }, 1500);
+        }
+        function handleHomeRequestSubmit(e) {
+            e.preventDefault();
+            const patient = document.getElementById("hrPatient").value;
+            const blood = document.getElementById("hrBlood").value;
+            alert("Emergency Request Broadcasted for " + patient + " (" + blood + ")! Nearby donors have been notified.");
+            document.getElementById("homeRequestModal").style.display = "none";
+        }
+    </script>
+</body>
+</html>
